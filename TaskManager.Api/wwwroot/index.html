@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TaskManager API Demo</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div>
+        <h1>TaskManager</h1>
+        <p class="sub">Small frontend demo for JWT + ownership + tasks.</p>
+      </div>
+
+      <div class="status">
+        <div class="chip" id="authChip">Not signed in</div>
+        <button class="btn ghost" id="logoutBtn" disabled>Logout</button>
+      </div>
+    </header>
+
+    <main class="grid">
+      <!-- AUTH CARD -->
+      <section class="card">
+        <h2>Auth</h2>
+        <p class="muted">Register or login</p>
+
+        <div class="row">
+          <label class="label">Username</label>
+          <input class="input" id="username" placeholder="e.g. yaphet2" />
+        </div>
+
+        <div class="row">
+          <label class="label">Password</label>
+          <input class="input" id="password" type="password" placeholder="e.g. pass1234" />
+        </div>
+
+        <div class="actions">
+          <button class="btn" id="registerBtn">Register</button>
+          <button class="btn primary" id="loginBtn">Login</button>
+        </div>
+
+        <details class="tokenBox">
+          <summary>Token (debug)</summary>
+          <pre id="tokenPreview">(none)</pre>
+        </details>
+
+        <div class="msg" id="authMsg"></div>
+      </section>
+
+      <!-- TASKS CARD -->
+      <section class="card">
+        <h2>My Tasks</h2>
+        <p class="muted">Create tasks and view only tasks owned by the signed-in user.</p>
+
+        <div class="row">
+          <label class="label">Title</label>
+          <input class="input" id="taskTitle" placeholder="e.g. Finish Unit 10" />
+        </div>
+
+        <div class="row">
+          <label class="label">Description</label>
+          <input class="input" id="taskDesc" placeholder="Optional" />
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" id="createTaskBtn" disabled>Create Task</button>
+          <button class="btn" id="refreshBtn" disabled>Refresh</button>
+        </div>
+
+        <div class="filters">
+          <div class="row inline">
+            <label class="label">Page</label>
+            <input class="input small" id="page" type="number" value="1" min="1" />
+          </div>
+          <div class="row inline">
+            <label class="label">Page size</label>
+            <input class="input small" id="pageSize" type="number" value="5" min="1" max="100" />
+          </div>
+          <div class="row inline">
+            <label class="label">Completed</label>
+            <select class="input" id="completedFilter">
+              <option value="">All</option>
+              <option value="true">Completed</option>
+              <option value="false" selected>Not completed</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="meta" id="pageMeta"></div>
+        <div class="list" id="taskList"></div>
+        <div class="msg" id="taskMsg"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span class="muted">
+        Tip: this UI talks to the same API endpoints as Swagger: <code>/api/auth/*</code> and <code>/api/tasks</code>.
+      </span>
+    </footer>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
