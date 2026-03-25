@@ -92,6 +92,9 @@ if (app.Environment.IsDevelopment())
 // Keep OFF for now (we can re-enable HTTPS later cleanly)
 // app.UseHttpsRedirection();
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.UseAuthentication(); // must come before UseAuthorization
 app.UseAuthorization();
 

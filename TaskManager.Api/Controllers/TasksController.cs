@@ -29,7 +29,7 @@ public class TasksController : ControllerBase
     // GET: api/tasks
     // GET: api/tasks?page=1&pageSize=20&isCompleted=true|false
     [HttpGet]
-    public async Task<ActionResult<List<TaskResponse>>> GetMyTasks(
+    public async Task<ActionResult<PagedResult<TaskResponse>>> GetMyTasks(
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 20,
         [FromQuery] bool? isCompleted = null)
@@ -38,26 +38,34 @@ public class TasksController : ControllerBase
 
         if (page < 1) page = 1;
         if (pageSize < 1) pageSize = 20;
-        if (pageSize > 100) pageSize = 100; // protect API from huge requests
+        if (pageSize > 100) pageSize = 100;
 
         var query = _db.Tasks
             .Where(t => t.UserId == userId)
             .AsQueryable();
 
         if (isCompleted.HasValue)
-        {
             query = query.Where(t => t.IsCompleted == isCompleted.Value);
-        }
 
-        var tasks = await query
+        var totalItems = await query.CountAsync();
+        var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+        var items = await query
             .OrderByDescending(t => t.Id)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .Select(t => new TaskResponse(t.Id, t.Title, t.Description, t.IsCompleted))
             .ToListAsync();
 
-        return Ok(tasks);
+        return Ok(new PagedResult<TaskResponse>(
+            Items: items,
+            Page: page,
+            PageSize: pageSize,
+            TotalItems: totalItems,
+            TotalPages: totalPages
+        ));
     }
+
 
     // POST: api/tasks
     [HttpPost]

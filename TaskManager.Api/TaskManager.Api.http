@@ -4,3 +4,18 @@ GET {{TaskManager.Api_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+POST {{TaskManager.Api_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "yaphet2",
+  "password": "pass1234"
+}
+
+###
+
+GET {{TaskManager.Api_HostAddress}}/api/tasks
+Authorization: Bearer {eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoieWFwaGV0MiIsImV4cCI6MTc3MTIwMTY2MSwiaXNzIjoiVGFza01hbmFnZXJBcGkiLCJhdWQiOiJUYXNrTWFuYWdlckFwaVVzZXJzIn0.FPT_AeCZxBRdESg-1RInp7pe5OY1C5_1gBg_EKNBki0}
+Accept: application/json
+
+###

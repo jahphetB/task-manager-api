@@ -17,3 +17,8 @@ obj/
 # OS files
 .DS_Store
 Thumbs.db
+
+qa/playwright/node_modules/
+qa/playwright/playwright-report/
+qa/playwright/test-results/
+qa/playwright/.cache/
